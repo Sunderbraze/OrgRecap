@@ -17,19 +17,21 @@ Remember to install Unity Mod Manager using Doorstop Proxy installation method.
 
 # Why a C# assembly? Why not JSON?
 
-I'm glad you asked. Currently, there are two aspects of Orgs that are baked into the game's assembly code and therefore cannot be modified with JSON files: the number of orgs that can be assigned to a councilor, and the number of orgs allowed in a faction's unassigned org pool. If any devs happen to read this, these specific functions are the issue:
+I'm glad you asked. Currently, there are two aspects of Orgs that are baked into the game's assembly code and therefore cannot be modified with JSON files: the number of orgs that can be assigned to a councilor, and the number of orgs allowed in a faction's unassigned org pool. 
+
+If any devs happen to read this, these specific functions are the issue:
 
 
 PavonisInteractive.TerraInvicta.TICouncilorState.SufficientCapacityForOrg(TIOrgState) : bool @060024C4
 
-return this.orgs.Count < 15 && this.availableAdministration >= org.tier - org.administration && this.orgsWeight + org.tier <= this.maxCouncilorAttribute;
+  return this.orgs.Count < 15 && this.availableAdministration >= org.tier - org.administration && this.orgsWeight + org.tier <= this.maxCouncilorAttribute;
 
 Instead of 15, this should reference an int defined in TIGlobalConfig, perhaps councilorMaxOrgCapacity
 
 
 PavonisInteractive.TerraInvicta.TIFactionState.UnassignedPoolOverage() : int @060029B6
 
-return Mathf.Max(this.unassignedOrgs.Count - (from x in this.unassignedOrgs where !x.template.allowedOnMarket select x).Count<TIOrgState>() - 10, 0);
+  return Mathf.Max(this.unassignedOrgs.Count - (from x in this.unassignedOrgs where !x.template.allowedOnMarket select x).Count<TIOrgState>() - 10, 0);
 
 Instead of 10, this should reference an int defined in TIGlobalConfig, perhaps factionMaxUnassignedOrgs
 
