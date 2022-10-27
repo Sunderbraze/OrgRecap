@@ -15,7 +15,7 @@ Alternate D/L link because nexus mods is trash: https://www.dropbox.com/s/wz8x8e
 
 Remember to install Unity Mod Manager using Doorstop Proxy installation method.
 
-# Why does this have to be a C# assembly? Why not JSON?
+# Why a C# assembly? Why not JSON?
 
 I'm glad you asked. Currently, there are two aspects of Orgs that are baked into the game's assembly code and therefore cannot be modified with JSON files: the number of orgs that can be assigned to a councilor, and the number of orgs allowed in a faction's unassigned org pool. If any devs happen to read this, these specific functions are the issue:
 
