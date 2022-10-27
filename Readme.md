@@ -10,6 +10,7 @@ Note that the UI will always say 15 is the maximum number of orgs, regardless of
 Unfortunately this mod requires Unity Mod Manager to function because the game currently will not load assemblies from mod folders. Hopefully in the future it will do so, like Rimworld and many others.
 
 Unity Mod Manager homepage: https://www.nexusmods.com/site/mods/21
+ 
 Alternate D/L link because nexus mods is trash: https://www.dropbox.com/s/wz8x8e4onjdfdbm/UnityModManager.zip?dl=1
 
 Remember to install Unity Mod Manager using Doorstop Proxy installation method.
@@ -18,12 +19,18 @@ Remember to install Unity Mod Manager using Doorstop Proxy installation method.
 
 I'm glad you asked. Currently, there are two aspects of Orgs that are baked into the game's assembly code and therefore cannot be modified with JSON files: the number of orgs that can be assigned to a councilor, and the number of orgs allowed in a faction's unassigned org pool. If any devs happen to read this, these specific functions are the issue:
 
+
 PavonisInteractive.TerraInvicta.TICouncilorState.SufficientCapacityForOrg(TIOrgState) : bool @060024C4
+
 return this.orgs.Count < 15 && this.availableAdministration >= org.tier - org.administration && this.orgsWeight + org.tier <= this.maxCouncilorAttribute;
+
 Instead of 15, this should reference an int defined in TIGlobalConfig, perhaps councilorMaxOrgCapacity
 
+
 PavonisInteractive.TerraInvicta.TIFactionState.UnassignedPoolOverage() : int @060029B6
+
 return Mathf.Max(this.unassignedOrgs.Count - (from x in this.unassignedOrgs where !x.template.allowedOnMarket select x).Count<TIOrgState>() - 10, 0);
+
 Instead of 10, this should reference an int defined in TIGlobalConfig, perhaps factionMaxUnassignedOrgs
 
 # Sauce?
