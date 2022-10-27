@@ -24,14 +24,14 @@ If any devs happen to read this, these specific functions are the issue:
 
 PavonisInteractive.TerraInvicta.TICouncilorState.SufficientCapacityForOrg(TIOrgState) : bool @060024C4
 
-  return this.orgs.Count < 15 && this.availableAdministration >= org.tier - org.administration && this.orgsWeight + org.tier <= this.maxCouncilorAttribute;
+			return this.orgs.Count < 15 && this.availableAdministration >= org.tier - org.administration && this.orgsWeight + org.tier <= this.maxCouncilorAttribute;
 
 Instead of 15, this should reference an int defined in TIGlobalConfig, perhaps councilorMaxOrgCapacity
 
 
 PavonisInteractive.TerraInvicta.TIFactionState.UnassignedPoolOverage() : int @060029B6
 
-  return Mathf.Max(this.unassignedOrgs.Count - (from x in this.unassignedOrgs where !x.template.allowedOnMarket select x).Count<TIOrgState>() - 10, 0);
+			return Mathf.Max(this.unassignedOrgs.Count - (from x in this.unassignedOrgs where !x.template.allowedOnMarket select x).Count<TIOrgState>() - 10, 0);
 
 Instead of 10, this should reference an int defined in TIGlobalConfig, perhaps factionMaxUnassignedOrgs
 
@@ -42,6 +42,10 @@ Of course.
 Unity Mod Manager: https://github.com/newman55/unity-mod-manager/
 
 Org Recap: https://github.com/Sunderbraze/OrgRecap/
+
+# No project file?
+
+No, I despise Visual Studio with the fiery passion of a thousand suns. Nobody should ever subject a computer they respect to that dumpster fire of a program. I compiled this using csc. You probably have it too. C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc
 
 # Help! Something doesnt work!
 
